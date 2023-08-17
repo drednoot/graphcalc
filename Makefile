@@ -16,12 +16,18 @@ utility.a: utility.o
 generate_graphics_makefile:
 	qmake -o graphics.mk
 
+generate_release_makefile:
+	qmake -o graphics.mk -config release
+
 create_build:
 	mkdir -p ./build
 
 build_graphics: generate_graphics_makefile create_build backend.a utility.a
 	make -f graphics.mk all
 	mv graphcalc ./build/
+
+install: clean generate_release_makefile backend.a utility.a
+	make -f graphics.mk install
 
 dist: generate_graphics_makefile create_build
 	make -f graphics.mk dist
