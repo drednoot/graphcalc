@@ -21,7 +21,7 @@ create_build:
 
 build_graphics: generate_graphics_makefile create_build backend.a utility.a
 	make -f graphics.mk all
-	cp smartcalc ./build/
+	mv graphcalc ./build/
 
 dist: generate_graphics_makefile create_build
 	make -f graphics.mk dist
@@ -52,7 +52,7 @@ clean: clean_backend clean_graphics
 	rm -rf *.dSYM
 	rm -rf test
 	rm -rf main
-	rm -rf smartcalc
+	rm -rf graphcalc
 	rm -rf gcov_report
 	rm -rf *.gcno
 	rm -rf vgcore.*
