@@ -5,6 +5,8 @@ STACK_OBJ=./backend/double_stack.o ./backend/lexem_stack.o
 PARSER_OBJ=./backend/parser.o
 ALGORITHM_OBJ=./backend/algorithm.o
 
+INSTALL_DIR=/usr/local/bin
+
 all: backend.a build_graphics
 
 backend.a: ${STACK_OBJ} ${PARSER_OBJ} ${ALGORITHM_OBJ}
@@ -17,7 +19,7 @@ generate_graphics_makefile:
 	qmake -o graphics.mk
 
 generate_release_makefile:
-	qmake -o graphics.mk -config release
+	qmake  -config release -o graphics.mk
 
 create_build:
 	mkdir -p ./build
@@ -26,8 +28,13 @@ build_graphics: generate_graphics_makefile create_build backend.a utility.a
 	make -f graphics.mk all
 	mv graphcalc ./build/
 
-install: clean generate_release_makefile backend.a utility.a
-	make -f graphics.mk install
+create_install_dir:
+	mkdir -p $(INSTALL_DIR)
+
+install: clean generate_release_makefile create_install_dir create_build backend.a utility.a
+	make -f graphics.mk
+	mv graphcalc build
+	cp build/graphcalc $(INSTALL_DIR)
 
 dist: generate_graphics_makefile create_build
 	make -f graphics.mk dist
