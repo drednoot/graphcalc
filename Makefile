@@ -13,23 +13,19 @@ backend.a: ${STACK_OBJ} ${PARSER_OBJ} ${ALGORITHM_OBJ}
 utility.a: utility.o
 	ar rcs $@ $^
 
-build_main: DEBUGFLAGS += -g
-build_main: utility.a backend.a
-	$(CC) $(FLAGS) $(DEBUGFLAGS) main.c -lm -L. backend.a -L. utility.a -o main
-
 generate_graphics_makefile:
 	qmake -o graphics.mk
 
 create_build:
-	mkdir -p ../build
+	mkdir -p ./build
 
 build_graphics: generate_graphics_makefile create_build backend.a utility.a
 	make -f graphics.mk all
-	cp smartcalc ../build/
+	cp smartcalc ./build/
 
 dist: generate_graphics_makefile create_build
 	make -f graphics.mk dist
-	mv *.tar.gz ../build/
+	mv *.tar.gz ./build/
 
 ./%.o: ./%.c
 	$(CC) $(FLAGS) $(DEBUGFLAGS) -c $^ -o $@
@@ -48,7 +44,7 @@ clean_graphics:
 	rm -rf qrc_icons.cpp
 
 clean_build:
-	rm -rf ../build
+	rm -rf ./build
 
 clean: clean_backend clean_graphics
 	rm -rf *.a
