@@ -13,12 +13,6 @@ backend.a: ${STACK_OBJ} ${PARSER_OBJ} ${ALGORITHM_OBJ}
 utility.a: utility.o
 	ar rcs $@ $^
 
-main: build_main
-	./main
-
-test: build_test
-	./test
-
 build_main: DEBUGFLAGS += -g
 build_main: utility.a backend.a
 	$(CC) $(FLAGS) $(DEBUGFLAGS) main.c -lm -L. backend.a -L. utility.a -o main
@@ -66,11 +60,3 @@ clean: clean_backend clean_graphics
 	rm -rf gcov_report
 	rm -rf *.gcno
 	rm -rf vgcore.*
-
-gcov_report: GCOVFLAGS = -lcheck --coverage
-gcov_report: DEBUGFLAGS = -g
-gcov_report: test
-gcov_report:
-	geninfo ./ -b ./ -o ./coverage.info
-	genhtml coverage.info -o gcov_report
-	open gcov_report/index.html
