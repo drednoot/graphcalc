@@ -12,9 +12,6 @@ all: backend.a build_graphics
 backend.a: ${STACK_OBJ} ${PARSER_OBJ} ${ALGORITHM_OBJ}
 	ar rcs $@ $^
 
-utility.a: utility.o
-	ar rcs $@ $^
-
 generate_graphics_makefile:
 	qmake -o graphics.mk
 
@@ -24,14 +21,14 @@ generate_release_makefile:
 create_build:
 	mkdir -p ./build
 
-build_graphics: generate_graphics_makefile create_build backend.a utility.a
+build_graphics: generate_graphics_makefile create_build backend.a
 	make -f graphics.mk all
 	mv graphcalc ./build/
 
 create_install_dir:
 	mkdir -p $(INSTALL_DIR)
 
-install: clean generate_release_makefile create_install_dir create_build backend.a utility.a
+install: clean generate_release_makefile create_install_dir create_build backend.a
 	make -f graphics.mk
 	mv graphcalc build
 	cp build/graphcalc $(INSTALL_DIR)
