@@ -1,6 +1,6 @@
 # THIS REPOSITORY IS ARCHIVED
 
-This project is now rewritten in C++ completely. Check out [graphcalc2](https://github.com/drednoot/graphcalc2)
+This project is now rewritten in C++ completely. Check out [graphcalc2](https://github.com/drednoot/graphcalc2)  
 The new version is a lot more flexible and doesn't have rudimentary C backend
 
 # Graphical calculator with graphs support
